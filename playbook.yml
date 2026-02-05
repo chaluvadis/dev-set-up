@@ -1,0 +1,12 @@
+---
+- name: Setup Ubuntu dev environment for iMac
+  hosts: localhost
+  become: yes
+  roles:
+    - common
+    - git
+    - github-cli
+    - nodejs
+    - docker
+    - vscode
+    - apidog

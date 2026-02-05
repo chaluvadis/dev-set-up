@@ -1,0 +1,17 @@
+---
+- name: Update & upgrade apt packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Install basic dev packages
+  apt:
+    name:
+      - build-essential
+      - curl
+      - wget
+      - zsh
+      - vim
+      - tmux
+      - software-properties-common
+    state: present

@@ -1,0 +1,29 @@
+---
+# Install Oh My Zsh
+- name: Install Oh My Zsh if not present
+  shell: |
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
+  args:
+    executable: /bin/bash
+
+# Change default shell to zsh
+- name: Change default shell to zsh for current user
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+
+# Add recommended plugins to .zshrc
+- name: Ensure plugins are set in .zshrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    regexp: '^plugins='
+    line: 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting docker)'
+    create: yes
+
+# Source .zshrc to apply changes (optional)
+- name: Source .zshrc
+  shell: source {{ ansible_env.HOME }}/.zshrc
+  args:
+    executable: /bin/bash
